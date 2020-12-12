@@ -24,19 +24,7 @@
       top: -12em;
       right: -15em;
 
-      &::before {
-        content: "";
-        display: block;
-
-        position: absolute;
-        width: 2em;
-        height: 2em;
-        border-radius: 0.5em;
-        background-color: $color-c;
-        top: 17em;
-        left: -3.5em;
-      }
-
+      &::before,
       &::after {
         content: "";
         display: block;
@@ -46,6 +34,14 @@
         height: 2em;
         border-radius: 0.5em;
         background-color: $color-c;
+      }
+
+      &::before {
+        top: 17em;
+        left: -3.5em;
+      }
+
+      &::after {
         top: 26em;
         left: 5em;
       }
