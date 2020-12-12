@@ -14,13 +14,23 @@
     <title>AppMaku</title>
   </head>
   <body>
-    <div
-      class="design-elements position-relative vw-100 min-vh-100 overflow-hidden"
-    >
+    <nav class="navigation">
+      <input type="checkbox" class="navigation__checkbox" id="navi-toggle" />
+      <label for="navi-toggle" class="navigation__button">
+        <span class="navigation__icon"><span></span></span>
+      </label>
+      <a href="#" class="navigation__logo">AppMaku</a>
+      <a href="#" class="twitter-link">
+        <svg class="twitter-icon">
+          <use xlink:href="assets/svgs/sprite.svg#icon-twitter"></use>
+        </svg>
+      </a>
+    </nav>
+    <div class="design-elements">
       <!-- Design Elements  -->
-      <div class="position-absolute design-elements__box--1"></div>
-      <div class="position-absolute design-elements__box--2"></div>
-      <div class="position-absolute design-elements__box--3"></div>
+      <div class="design-elements__box--1"></div>
+      <div class="design-elements__box--2"></div>
+      <div class="design-elements__box--3"></div>
       <div class="design-elements__bg-img--1">
         <!-- prettier-ignore -->
         <code class="design-elements__accompany--1">
@@ -50,5 +60,6 @@
         </h1>
       </header>
     </div>
+    <div class="height-dummy">&nbsp;</div>
   </body>
 </html>
