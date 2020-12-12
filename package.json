@@ -10,7 +10,7 @@
     "compile:sass": "sass sass/main.scss temp/style.comp.css",
     "prefix:css": "postcss --use autoprefixer -b \"last 10 versions\" temp/style.comp.css -o temp/style.prefix.css",
     "compress:css": "sass temp/style.prefix.css dist/styles/main.css --style compressed",
-    "build:css": "npm-run-all compile:sass concat:css prefix:css compress:css",
+    "build:css": "npm-run-all compile:sass prefix:css compress:css",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
