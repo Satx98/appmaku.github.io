@@ -39,9 +39,9 @@ body {
 
 .heading-primary {
   display: block;
-  font-size: 4rem;
+  font-size: 4.3rem;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.2;
   text-align: center;
   text-shadow: 0.1rem 0.1rem 0.3rem rgba(0, 0, 0, 0.2);
   color: #fff;
@@ -104,7 +104,7 @@ body {
   top: -12em;
   right: -15em;
 }
-.design-elements__box--1::before {
+.design-elements__box--1::before, .design-elements__box--1::after {
   content: "";
   display: block;
   position: absolute;
@@ -112,17 +112,12 @@ body {
   height: 2em;
   border-radius: 0.5em;
   background-color: #fd3a69;
+}
+.design-elements__box--1::before {
   top: 17em;
   left: -3.5em;
 }
 .design-elements__box--1::after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 2em;
-  height: 2em;
-  border-radius: 0.5em;
-  background-color: #fd3a69;
   top: 26em;
   left: 5em;
 }
@@ -205,13 +200,121 @@ body {
 .header {
   height: 100%;
   display: grid;
-  grid-template-columns: minmax(2.5rem, 1fr) 10fr minmax(2.5rem, 1fr);
+  grid-template-columns: minmax(2rem, 0.5fr) 11fr minmax(2rem, 0.5fr);
   grid-template-rows: min-content;
   align-content: center;
   z-index: 1000;
 }
 .header__heading {
   grid-column: 2/3;
+}
+
+.height-dummy {
+  height: 100vh;
+  width: 100%;
+  display: block;
+}
+
+.navigation {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 1rem 2rem;
+  color: #999;
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  grid-template-rows: max-content;
+  grid-column-gap: 1rem;
+}
+.navigation .twitter-link {
+  line-height: 1;
+  text-decoration: none;
+  display: block;
+  color: currentColor;
+}
+.navigation .twitter-icon {
+  display: block;
+  height: 2.7rem;
+  width: 2.7rem;
+  fill: currentColor;
+}
+.navigation__logo {
+  text-decoration: none;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #722828;
+  letter-spacing: 2px;
+  line-height: 1;
+  align-self: center;
+}
+.navigation__checkbox {
+  display: none;
+}
+.navigation__button {
+  display: grid;
+  grid-template-columns: max-content;
+  grid-template-rows: max-content;
+  justify-content: center;
+  align-content: center;
+  background-color: #fd3a69;
+  height: 3.2rem;
+  width: 3.2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+}
+.navigation__icon {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  color: #f7f7f7;
+  height: 2rem;
+  width: 2rem;
+}
+.navigation__icon span, .navigation__icon::before, .navigation__icon::after {
+  display: block;
+  height: 2px;
+  background-color: currentColor;
+  display: inline-block;
+}
+.navigation__icon::before, .navigation__icon::after {
+  content: "";
+  left: 0;
+  transition: all 0.2s;
+  grid-column: 1/-1;
+}
+.navigation__icon::before {
+  grid-row: 1/span 1;
+  align-self: center;
+}
+.navigation__icon::after {
+  grid-row: 3/span 1;
+  align-self: center;
+}
+.navigation__icon span {
+  grid-row: 2/span 1;
+  grid-column: 1/-2;
+  align-self: center;
+  width: 100%;
+}
+.navigation__button:hover .navigation__icon::before {
+  transform: translateY(-0.2rem);
+}
+.navigation__button:hover .navigation__icon::after {
+  transform: translateY(0.2rem);
+}
+.navigation__checkbox:checked + .navigation__button .navigation__icon span {
+  background-color: transparent;
+}
+.navigation__checkbox:checked + .navigation__button .navigation__icon::before {
+  grid-row: 1/-1;
+  transform: rotate(135deg);
+}
+.navigation__checkbox:checked + .navigation__button .navigation__icon::after {
+  grid-row: 1/-1;
+  transform: rotate(-135deg);
 }
 
 /*# sourceMappingURL=style.comp.css.map */
