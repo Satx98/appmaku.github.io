@@ -1,15 +1,9 @@
 .header {
-  height: 100%;
-  display: grid;
-  grid-template-columns: minmax(2rem, 0.5fr) 11fr minmax(2rem, 0.5fr);
-  grid-template-rows: min-content;
-  align-content: center;
+  grid-row: 2 / 3;
+  grid-column: center-start / center-end;
+  align-self: center;
 
-  z-index: 1000;
-
-  &__heading {
-    grid-column: 2 / 3;
-  }
+  z-index: 1;
 }
 
 .height-dummy {

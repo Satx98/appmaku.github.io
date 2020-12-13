@@ -1,0 +1,20 @@
+.container {
+  display: grid;
+
+  grid-template-rows: 72px min-content min-content 40vw repeat(3, min-content);
+  grid-template-columns:
+    [full-start] minmax(2rem, 0.5fr) [center-start] repeat(
+      8,
+      [col-start] minmax(min-content, 14rem) [col-end]
+    )
+    [center-end] minmax(2rem, 0.5fr) [full-end];
+}
+
+.container::before {
+  content: "";
+  display: block;
+  grid-row: 1 / 2;
+  grid-column: full-start / full-end;
+  width: 100%;
+  height: 100%;
+}

@@ -11,10 +11,14 @@
     />
     <link rel="stylesheet" href="./styles/main.css" />
 
+    <script src="./scripts/index.js" defer></script>
+
     <title>AppMaku</title>
   </head>
-  <body>
-    <nav class="navigation">
+  <body class="container">
+    <div class="backdrop" id="backdrop"></div>
+    <nav class="mobile-nav" id="mobile-nav"></nav>
+    <nav class="navigation" id="navbar">
       <input type="checkbox" class="navigation__checkbox" id="navi-toggle" />
       <label for="navi-toggle" class="navigation__button">
         <span class="navigation__icon"><span></span></span>
@@ -26,40 +30,57 @@
         </svg>
       </a>
     </nav>
-    <div class="design-elements">
-      <!-- Design Elements  -->
-      <div class="design-elements__box--1"></div>
-      <div class="design-elements__box--2"></div>
-      <div class="design-elements__box--3"></div>
-      <div class="design-elements__bg-img--1">
-        <!-- prettier-ignore -->
-        <code class="design-elements__accompany--1">
-          &::after {
-            content: "";
-            display: block;
-    
-            position: absolute;
-            width: 2em;
-            height: 2em;
-            border-radius: 0.5em;
-            background-color: $color-c;
-            top: 26em;
-            left: 5em;
-          }
-        </code>
-      </div>
 
-      <img
-        src="./assets/images/phone-bezel.png"
-        alt="Phone Bezel"
-        class="design-elements__img"
-      />
-      <header class="header">
-        <h1 class="header__heading heading-primary">
-          Need mobile apps or websites?
-        </h1>
-      </header>
+    <div class="hero">
+      <!-- Design Elements  -->
+      <div class="hero__box--1"></div>
+      <div class="hero__box--2"></div>
+      <div class="hero__box--3"></div>
+
+      <div class="hero__img" id="phone-bezel-div">
+        <img src="./assets/images/phone-bezel.png" alt="Phone Bezel" class="hero__phone-bezel" />
+      </div>
+      <!-- prettier-ignore -->
+      <code class="hero__accompany--1" id="accompany-1">
+&::after {
+  content: "";
+  display: block;
+
+  position: absolute;
+  width: 2em;
+  height: 2em;
+  border-radius: 0.5em;
+  background-color: $color-c;
+  top: 26em;
+  left: 5em;
+}
+      </code>
     </div>
+
+    <header class="header">
+      <h1 class="heading-primary">Need mobile apps or websites?</h1>
+    </header>
+
     <div class="height-dummy">&nbsp;</div>
   </body>
 </html>
+
+<!-- <div class="hero__bg-img--1">
+   prettier-ignore
+<code class="hero__accompany--1">
+    &::after {
+      content: "";
+      display: block;
+
+      position: absolute;
+      width: 2em;
+      height: 2em;
+      border-radius: 0.5em;
+      background-color: $color-c;
+      top: 26em;
+      left: 5em;
+    }
+  </code>
+</div>
+
+ -->
