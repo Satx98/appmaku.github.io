@@ -98,7 +98,7 @@ body {
   grid-template-rows: 72px 1fr;
   position: relative;
   width: 100vw;
-  min-height: 100%;
+  min-height: 100vh;
   overflow: hidden;
   z-index: -1000;
   background-color: #f7f7f7;
@@ -195,25 +195,9 @@ body {
   top: 9rem;
   left: 8rem;
 } */
-.container {
-  display: grid;
-  width: 100vw;
-  grid-template-rows: 72px min-content min-content 40vw repeat(3, min-content);
-  grid-template-columns: [full-start] minmax(2rem, 0.5fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(2rem, 0.5fr) [full-end];
-}
-
-.container::before {
-  content: "";
-  display: block;
-  grid-row: 1/2;
-  grid-column: full-start/full-end;
-  width: 100%;
-  height: 100%;
-}
-
 .scroll-view {
-  height: 100%;
-  width: 50%;
+  height: 100vh;
+  width: 25vw;
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;
@@ -232,6 +216,23 @@ body {
     box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.4);
   }
 }
+.container {
+  display: grid;
+  width: 100vw;
+  position: relative;
+  grid-template-rows: 72px min-content min-content 40vw repeat(3, min-content);
+  grid-template-columns: [full-start] minmax(2rem, 0.5fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(2rem, 0.5fr) [full-end];
+}
+
+.container::before {
+  content: "";
+  display: block;
+  grid-row: 1/2;
+  grid-column: full-start/full-end;
+  width: 100%;
+  height: 100%;
+}
+
 .header {
   grid-row: 2/3;
   grid-column: center-start/center-end;
@@ -248,11 +249,11 @@ body {
 @media only screen and (hover: none) {
   .navigation {
     border-top-left-radius: 0.8rem;
-    transform: translateX(50%);
+    transform: translateX(75%);
   }
 
   .navigation__button-container {
-    transform: translateX(50vw);
+    transform: translateX(75vw);
   }
 }
 .navigation {
@@ -381,25 +382,35 @@ body {
 }
 
 .backdrop {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  background: rgba(51, 51, 51, 0.5);
-  z-index: 5;
-  display: none;
+  height: 100%;
+  background: rgba(51, 51, 51, 0.6);
+  z-index: 1005;
 }
 
-.mobile-div-container {
-  background-color: orangered;
-  display: block;
-  width: 50vw;
-  height: 100vw;
+.mobile-nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75vw;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   z-index: -9999;
+}
+
+.mobile-nav {
+  margin-left: -2%;
+  display: block;
+  height: 99.8%;
+  width: 95%;
+  border-radius: 0.8rem;
+  box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.4);
+  background: #fff;
 }
 
 /*# sourceMappingURL=main.css.map */
