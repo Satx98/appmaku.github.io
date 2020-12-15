@@ -1,4 +1,7 @@
 const ready = () => {
+  // Giving vw unit to the body
+  document.body.style.setProperty('--vw', document.body.getBoundingClientRect().width / 100 + 'px');
+
   // Positioning hero elements realative to the phone-bezel
   const mainBody = document.getElementById('body');
   const phoneBezelDiv = document.getElementById('phone-bezel-div');
@@ -10,24 +13,26 @@ const ready = () => {
     .slice(0, -2);
 
   const phoneBezelDivSizes = phoneBezelDiv.getBoundingClientRect();
+  const bodySizes = body.getBoundingClientRect();
 
   const editedPhoneBezelDivSizes = {
     height: phoneBezelDivSizes.height - psuedoElementHeight * 2,
     width: phoneBezelDivSizes.width,
-    x: phoneBezelDivSizes.x,
+    x: phoneBezelDivSizes.x - bodySizes.x,
     y: phoneBezelDivSizes.y + psuedoElementHeight + scrolledPosition,
     top: phoneBezelDivSizes.top + psuedoElementHeight + scrolledPosition,
     bottom: phoneBezelDivSizes.bottom - psuedoElementHeight + scrolledPosition,
-    left: phoneBezelDivSizes.left,
-    right: phoneBezelDivSizes.right,
+    left: phoneBezelDivSizes.left - bodySizes.x,
+    right: phoneBezelDivSizes.right - bodySizes.x,
   };
 
   document.body.style.setProperty('--unit', editedPhoneBezelDivSizes.height / 100 + 'px');
 
-  console.log(phoneBezelDiv);
-  console.dir(phoneBezelDiv);
-  console.log(phoneBezelDivSizes);
-  console.log(editedPhoneBezelDivSizes);
+  // console.log(bodySizes);
+  // console.log(phoneBezelDiv);
+  // console.dir(phoneBezelDiv);
+  // console.log(phoneBezelDivSizes);
+  // console.log(editedPhoneBezelDivSizes);
 
   const accompanyOneEl = document.getElementById('accompany-1');
   accompanyOneEl.style.setProperty(

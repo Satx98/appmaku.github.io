@@ -85,6 +85,30 @@ body {
   margin-top: 10rem !important;
 }
 
+.nav-link {
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+  line-height: 1;
+  text-decoration: none;
+  font-size: calc(7 * var(--vw));
+  color: #9d0191;
+  padding-bottom: calc(1 * var(--vw));
+  border-bottom: calc(0.7 * var(--vw)) solid transparent;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  border-bottom: calc(0.7 * var(--vw)) solid currentColor;
+}
+
+.nav-link:focus,
+.nav-link:active {
+  outline: none;
+  color: #fd3a69;
+  border-bottom: calc(0.7 * var(--vw)) solid currentColor;
+}
+
 @media only screen and (hover: none) {
   .hero {
     border-top-left-radius: 0.8rem;
@@ -203,7 +227,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 1;
+  z-index: 2;
   background-color: #fff;
   animation: moveInRight 2s ease-out infinite;
 }
@@ -400,17 +424,65 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -9999;
+  z-index: 1;
 }
 
 .mobile-nav {
   margin-left: -2%;
-  display: block;
   height: 99.8%;
   width: 95%;
   border-radius: 0.8rem;
   box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.4);
-  background: #fff;
+  background-color: #fecd1a;
+  padding: 8vw 8vw;
+  list-style: none;
+  display: grid;
+  grid-template-columns: min-content max-content;
+  grid-auto-rows: min-content;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-row-gap: 5vw;
+  grid-column-gap: 3vw;
+}
+.mobile-nav::before {
+  content: "";
+  display: block;
+  grid-row: 1/span 3;
+  grid-column: 1/2;
+  height: 120%;
+  width: 0.4vw;
+  background-color: #fd3a69;
+  margin-top: -3.2vw;
+}
+.mobile-nav li {
+  width: calc(100% + 2vw);
+  height: 100%;
+  display: grid;
+  text-align: center;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: max-content;
+  grid-column-gap: 3vw;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+}
+.mobile-nav li::before {
+  content: "";
+  display: block;
+  width: 5vw;
+  height: 5vw;
+  border-radius: 50%;
+  background-color: transparent;
+  grid-row: 1/-1;
+  grid-column: 1/2;
+  margin-top: -2.1vw;
+  margin-left: -4.6vw;
+  transition: all 0.3s;
+}
+.mobile-nav .nav-link-active::before {
+  background-color: #9d0191;
 }
 
 /*# sourceMappingURL=main.css.map */

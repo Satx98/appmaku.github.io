@@ -94,3 +94,27 @@
 //         transform: translateY(0);
 //     }
 // }
+
+.nav-link {
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+  line-height: 1;
+  text-decoration: none;
+  font-size: calc(7 * var(--vw));
+  color: $color-b;
+  padding-bottom: calc(1 * var(--vw));
+  border-bottom: calc(0.7 * var(--vw)) solid transparent;
+  transition: all 0.3s;
+}
+
+.nav-link:hover {
+  border-bottom: calc(0.7 * var(--vw)) solid currentColor;
+}
+
+.nav-link:focus,
+.nav-link:active {
+  outline: none;
+  color: $color-c;
+  border-bottom: calc(0.7 * var(--vw)) solid currentColor;
+}
