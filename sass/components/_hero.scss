@@ -1,3 +1,9 @@
+@media only screen and (hover: none) {
+  .hero {
+    border-top-left-radius: 0.8rem;
+  }
+}
+
 .hero {
   grid-row: 1 / 3;
   grid-column: full-start / full-end;
@@ -8,7 +14,7 @@
 
   position: relative;
   width: 100vw;
-  min-height: 100vh;
+  min-height: 100%;
   overflow: hidden;
   z-index: -1000;
   background-color: $color-grey-light-1;
@@ -29,7 +35,7 @@
 
       &::before,
       &::after {
-        content: "";
+        content: '';
         display: block;
 
         position: absolute;
@@ -149,7 +155,7 @@
 
     &::before,
     &::after {
-      content: "";
+      content: '';
       display: block;
       width: 100%;
       height: 100%;

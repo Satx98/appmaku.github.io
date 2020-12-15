@@ -15,33 +15,45 @@
 
     <title>AppMaku</title>
   </head>
-  <body class="container">
-    <div class="backdrop" id="backdrop"></div>
-    <nav class="mobile-nav" id="mobile-nav"></nav>
-    <nav class="navigation" id="navbar">
-      <input type="checkbox" class="navigation__checkbox" id="navi-toggle" />
-      <label for="navi-toggle" class="navigation__button">
-        <span class="navigation__icon"><span></span></span>
-      </label>
-      <a href="#" class="navigation__logo">AppMaku</a>
-      <a href="#" class="twitter-link">
-        <svg class="twitter-icon">
-          <use xlink:href="assets/svgs/sprite.svg#icon-twitter"></use>
-        </svg>
-      </a>
+  <body>
+    <nav class="mobile-nav-container" id="mobile-nav">
+      <ul class="mobile-nav"></ul>
     </nav>
+    <div class="scroll-view" id="body">
+      <div class="container">
+        <div class="backdrop" id="backdrop"></div>
 
-    <div class="hero">
-      <!-- Design Elements  -->
-      <div class="hero__box--1"></div>
-      <div class="hero__box--2"></div>
-      <div class="hero__box--3"></div>
+        <div class="navigation__button-container">
+          <input type="checkbox" class="navigation__checkbox" id="navi-toggle" />
+          <label for="navi-toggle" class="navigation__button">
+            <span class="navigation__icon"><span></span></span>
+          </label>
+        </div>
 
-      <div class="hero__img" id="phone-bezel-div">
-        <img src="./assets/images/phone-bezel.png" alt="Phone Bezel" class="hero__phone-bezel" />
-      </div>
-      <!-- prettier-ignore -->
-      <code class="hero__accompany--1" id="accompany-1">
+        <nav class="navigation" id="navbar">
+          <a href="#" class="navigation__logo">AppMaku</a>
+          <a href="#" class="twitter-link">
+            <svg class="twitter-icon">
+              <use xlink:href="assets/svgs/sprite.svg#icon-twitter"></use>
+            </svg>
+          </a>
+        </nav>
+
+        <div class="hero">
+          <!-- Design Elements  -->
+          <div class="hero__box--1"></div>
+          <div class="hero__box--2"></div>
+          <div class="hero__box--3"></div>
+
+          <div class="hero__img" id="phone-bezel-div">
+            <img
+              src="./assets/images/phone-bezel.png"
+              alt="Phone Bezel"
+              class="hero__phone-bezel"
+            />
+          </div>
+          <!-- prettier-ignore -->
+          <code class="hero__accompany--1" id="accompany-1">
 &::after {
   content: "";
   display: block;
@@ -54,14 +66,20 @@
   top: 26em;
   left: 5em;
 }
-      </code>
+          </code>
+        </div>
+
+        <header class="header">
+          <h1 class="heading-primary">Need mobile apps or websites?</h1>
+          <!-- Need global attention?
+        Want your business online?
+        Need affordable website or mobile app?
+        You are at the best place!!! -->
+        </header>
+
+        <div class="height-dummy">&nbsp;</div>
+      </div>
     </div>
-
-    <header class="header">
-      <h1 class="heading-primary">Need mobile apps or websites?</h1>
-    </header>
-
-    <div class="height-dummy">&nbsp;</div>
   </body>
 </html>
 

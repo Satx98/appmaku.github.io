@@ -58,3 +58,16 @@ ORDER: Base + typography > general layout + grid > page layout > components
     } //1800px
   }
 }
+
+@mixin touch-detect($platform) {
+  @if $platform == desktop {
+    @media only screen and (hover: hover) {
+      @content;
+    }
+  }
+  @if $platform == mobile {
+    @media only screen and (hover: none) {
+      @content;
+    }
+  }
+}
