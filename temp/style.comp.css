@@ -1,3 +1,9 @@
+.changeTranslate, .hero__spacefiller--1, .hero__bg-img--1, .hero__accompany--1 {
+  position: absolute;
+  display: block;
+  transform: translate(-50%, -50%);
+}
+
 /* 
 0 - 600px:          Phone
 600 - 900px:        Tablet portrait
@@ -181,7 +187,6 @@ body {
   display: block;
 }
 .hero__accompany--1 {
-  position: absolute;
   font-size: calc(2 * var(--unit));
   padding: 0 calc(3 * var(--unit));
   color: rgba(255, 255, 255, 0.9);
@@ -190,8 +195,22 @@ body {
   top: var(--pos-top);
   left: var(--pos-left);
   border-radius: 0.3rem;
-  transform: translate(-50%, -50%);
   white-space: pre;
+}
+.hero__bg-img--1 {
+  background-image: url(../assets/images/header-photo-1.jpg);
+  width: calc(80 * var(--unit));
+  height: calc(60 * var(--unit));
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  top: var(--pos-top, 9999px);
+  left: var(--pos-left, 9999px);
+  opacity: 0.9;
+}
+.hero__spacefiller--1 {
+  width: calc(80 * var(--unit));
+  height: calc(60 * var(--unit));
 }
 
 /* .design-element--2::after {
