@@ -131,7 +131,6 @@ const moveAndOtherTouchListenersRemoved = ev => {
 
       menuToggle.checked = false;
     }
-    console.log('triggered1');
   }
 
   if (s < 0) {
@@ -157,7 +156,6 @@ const moveAndOtherTouchListenersRemoved = ev => {
 
       menuToggle.checked = true;
     }
-    console.log('triggered2');
   }
 
   x0 = null;
@@ -200,9 +198,6 @@ const lockAndOtherTouchListenersAdded = ev => {
     return;
   }
   x0 = ev.changedTouches[0].clientX;
-  console.log(ev);
-  console.log(ev.changedTouches[0]);
-  console.log(ev.changedTouches[0].clientX);
   window.addEventListener('touchmove', touchDrag);
   window.addEventListener('touchend', moveAndOtherTouchListenersRemoved);
 };
