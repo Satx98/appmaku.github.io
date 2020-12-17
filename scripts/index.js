@@ -8,8 +8,11 @@ const menuToggle = document.getElementById('navi-toggle');
 const navbar = document.getElementById('navbar');
 const phoneBezelDiv = document.getElementById('phone-bezel-div');
 const accompanyOneEl = document.getElementById('accompany-1');
+const bgImg1 = document.getElementById('bg-img-1');
 
 let bodySizes = null;
+let interval1 = null;
+let timeout1 = null;
 
 let mainBodyShrinkSize = 0; // Add media queries later here
 let sideDrawerWidth = 0;
@@ -166,6 +169,13 @@ const moveAndOtherTouchListenersRemoved = ev => {
 };
 
 const touchDrag = ev => {
+  clearInterval(fps);
+  clearInterval(interval1);
+  clearTimeout(timeout1);
+  interval1 = null;
+  timeout1 = null;
+  fps = null;
+
   let dx = ev.changedTouches[0].clientX - x0;
   let s = Math.sign(dx);
   let changedBodySize = null;
@@ -194,6 +204,12 @@ const touchDrag = ev => {
 };
 
 const lockAndOtherTouchListenersAdded = ev => {
+  clearInterval(fps);
+  clearInterval(interval1);
+  clearTimeout(timeout1);
+  interval1 = null;
+  timeout1 = null;
+  fps = null;
   if (!ev.changedTouches) {
     return;
   }
@@ -203,38 +219,15 @@ const lockAndOtherTouchListenersAdded = ev => {
 };
 // Touch Handlers Start
 
-// Adding a listener to changeInMainBodyWidth
-mainBody.addEventListener('changeInMainBodyWidth', onChangeInMainBodyWidth);
-// Adding an onscroll listener
-mainBody.addEventListener('scroll', onScroll);
-// Adding an onchange listener to menu button
-menuToggle.addEventListener('change', () => {
-  menuToggleClickHandler();
-  startfps();
-});
-// Adding listener for touch-screen users
-window.addEventListener('touchstart', lockAndOtherTouchListenersAdded, false);
-
-const ready = () => {
+// Positioning hero elements realative to the phone-bezel
+const posHandler = () => {
   const psuedoElementHeight = +window
     .getComputedStyle(phoneBezelDiv, '::before')
     .getPropertyValue('height')
     .slice(0, -2);
 
-  const menuToggleSizes = document.getElementById('navi-toggle-displayed').getBoundingClientRect();
-  bodySizes = document.body.getBoundingClientRect();
   const phoneBezelDivSizes = phoneBezelDiv.getBoundingClientRect();
 
-  mainBodyShrinkSize = (40 + menuToggleSizes.width).toFixed(2); // Add media queries later here
-  sideDrawerWidth = (bodySizes.width - mainBodyShrinkSize).toFixed(2);
-
-  // Giving vw unit to the body and setting the size of the side drawer
-  sideDrawer.style.width = sideDrawerWidth + 'px';
-  document.body.style.setProperty('--vw', bodySizes.width / 100 + 'px');
-  document.body.style.setProperty('--main-body-shrink-size', mainBodyShrinkSize + 'px');
-  document.body.style.setProperty('--side-drawer-width', sideDrawerWidth + 'px');
-
-  // Positioning hero elements realative to the phone-bezel
   const scrolledPosition = mainBody.scrollTop;
   const editedPhoneBezelDivSizes = {
     height: phoneBezelDivSizes.height - psuedoElementHeight * 2,
@@ -257,12 +250,66 @@ const ready = () => {
 
   accompanyOneEl.style.setProperty(
     '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.8 + 'px',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.75 + 'px',
   );
   accompanyOneEl.style.setProperty(
     '--pos-left',
     editedPhoneBezelDivSizes.x + editedPhoneBezelDivSizes.width * 1.25 + 'px',
   );
+  bgImg1.style.setProperty(
+    '--pos-top',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
+  );
+  bgImg1.style.setProperty(
+    '--pos-left',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.width * 0 + 'px',
+  );
+};
+
+// Adding a listener to changeInMainBodyWidth
+mainBody.addEventListener('changeInMainBodyWidth', onChangeInMainBodyWidth);
+// Adding an onscroll listener
+mainBody.addEventListener('scroll', onScroll);
+// Adding an onchange listener to menu button
+menuToggle.addEventListener('change', () => {
+  clearInterval(fps);
+  clearInterval(interval1);
+  clearTimeout(timeout1);
+  interval1 = null;
+  timeout1 = null;
+  fps = null;
+
+  menuToggleClickHandler();
+  startfps();
+});
+// Adding listener for touch-screen users
+window.addEventListener('touchstart', lockAndOtherTouchListenersAdded, false);
+
+const ready = () => {
+  const menuToggleSizes = document.getElementById('navi-toggle-displayed').getBoundingClientRect();
+  bodySizes = document.body.getBoundingClientRect();
+
+  mainBodyShrinkSize = (40 + menuToggleSizes.width).toFixed(2); // Add media queries later here
+  sideDrawerWidth = (bodySizes.width - mainBodyShrinkSize).toFixed(2);
+
+  // Giving vw unit to the body and setting the size of the side drawer
+  sideDrawer.style.width = sideDrawerWidth + 'px';
+  document.body.style.setProperty('--vw', bodySizes.width / 100 + 'px');
+  document.body.style.setProperty('--main-body-shrink-size', mainBodyShrinkSize + 'px');
+  document.body.style.setProperty('--side-drawer-width', sideDrawerWidth + 'px');
+
+  clearInterval(interval1);
+  clearTimeout(timeout1);
+  interval1 = null;
+  timeout1 = null;
+
+  interval1 = setInterval(posHandler, 16);
+  timeout1 = setTimeout(() => {
+    clearInterval(interval1);
+    clearTimeout(timeout1);
+    interval1 = null;
+    timeout1 = null;
+  }, 50);
 };
 
 window.onload = ready;
