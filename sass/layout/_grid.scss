@@ -1,6 +1,7 @@
 .scroll-view {
   height: 100vh;
-  width: 25vw;
+  width: 100vw;
+  width: var(--main-body-change-size, 100vw);
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;

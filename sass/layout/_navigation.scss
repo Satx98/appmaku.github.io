@@ -1,11 +1,7 @@
 @media only screen and (hover: none) {
   .navigation {
     border-top-left-radius: 0.8rem;
-    transform: translateX(75%);
-  }
-
-  .navigation__button-container {
-    transform: translateX(75vw);
+    transform: translateX(calc(100vw - var(--main-body-change-size)));
   }
 }
 
@@ -65,6 +61,8 @@
   }
 
   &__button-container {
+    transform: translateX(calc(100vw - var(--main-body-change-size)));
+
     display: flex;
     align-items: center;
     height: 72px;
@@ -115,8 +113,7 @@
     &::before,
     &::after {
       content: '';
-      left: 0;
-      transition: all 0.2s;
+      // transition: all 0.2s ease-out;
 
       grid-column: 1 / -1;
     }
@@ -162,6 +159,40 @@
     grid-row: 1 / -1;
     transform: rotate(-135deg);
   }
+
+  .checkbox-transition + &__button &__icon span,
+  .checkbox-transition:checked + &__button &__icon span {
+    background-color: transparent;
+  }
+
+  .checkbox-transition + &__button &__icon::before,
+  .checkbox-transition + &__button &__icon::after,
+  .checkbox-transition:checked + &__button &__icon::before,
+  .checkbox-transition:checked + &__button &__icon::after {
+    grid-row: 1 / -1;
+  }
+  .checkbox-transition + &__button &__icon::before,
+  .checkbox-transition:checked + &__button &__icon::before {
+    transform: rotate(calc(var(--f) * 135deg));
+  }
+  .checkbox-transition + &__button &__icon::after,
+  .checkbox-transition:checked + &__button &__icon::after {
+    transform: rotate(calc(var(--f) * -135deg));
+  }
+
+  // Utilities
+  .button-icon-animation--1 + &__button &__icon::before,
+  .button-icon-animation--1 + &__button &__icon::after {
+    transition: all 0.2s ease-out;
+  }
+  .button-icon-animation--2 + &__button &__icon::before,
+  .button-icon-animation--2 + &__button &__icon::after {
+    transition: all calc((1 - var(--f)) * 0.2s) ease-out;
+  }
+  .button-icon-animation--3 + &__button &__icon::before,
+  .button-icon-animation--3 + &__button &__icon::after {
+    transition: all calc(var(--f) * 0.2s) ease-out;
+  }
 }
 
 .backdrop {
@@ -170,9 +201,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba($color-grey-dark-3, 0.6);
+
+  background-color: rgba($color-grey-light-1, 0.5);
+  opacity: 0;
   z-index: 1005;
-  // display: none;
+  display: none;
+}
+.backdrop-display {
+  display: block;
 }
 
 .mobile-nav-container {
@@ -193,33 +229,38 @@
   height: 99.8%;
   width: 95%;
   border-radius: 0.8rem;
-  box-shadow: 0px 0px 1rem rgba($color: $color-black, $alpha: 0.4);
+  box-shadow: 0px 0px 2px rgba($color: $color-black, $alpha: 0.4);
 
   background-color: $color-d;
   padding: 8vw 8vw;
 
-  list-style: none;
-
-  display: grid;
-  grid-template-columns: min-content max-content;
-  grid-auto-rows: min-content;
-  align-content: center;
-  justify-content: center;
-  justify-items: center;
+  display: flex;
   align-items: center;
-  grid-row-gap: 5vw;
-  grid-column-gap: 3vw;
+  justify-content: center;
 
-  &::before {
-    content: '';
-    display: block;
-    grid-row: 1 / span 3;
-    grid-column: 1 / 2;
-    height: 120%;
-    width: 0.4vw;
-    background-color: $color-c;
+  ul {
+    margin-left: -6%;
+    list-style: none;
 
-    margin-top: -3.2vw;
+    display: grid;
+    grid-template-columns: min-content max-content;
+    grid-auto-rows: min-content;
+    justify-items: center;
+    align-items: center;
+    grid-row-gap: 5vw;
+    grid-column-gap: 3vw;
+
+    &::before {
+      content: '';
+      display: block;
+      grid-row: 1 / span 3;
+      grid-column: 1 / 2;
+      height: 120%;
+      width: 0.4vw;
+      background-color: $color-c;
+
+      margin-top: -3.2vw;
+    }
   }
 
   li {
