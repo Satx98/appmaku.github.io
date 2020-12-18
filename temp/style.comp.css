@@ -57,26 +57,6 @@ body {
   color: #fff;
 }
 
-.scroll-view-shrink {
-  width: var(--main-body-change-size, var(--main-body-shrink-size)) !important;
-}
-
-.navigation-move {
-  transform: translateX(var(--side-drawer-width)) !important;
-}
-
-.smooth-animation--1 {
-  transition: all 0.5s ease-out;
-}
-
-.smooth-animation--2 {
-  transition: all calc((1 - var(--f)) * 0.5s) ease-out;
-}
-
-.smooth-animation--3 {
-  transition: all calc(var(--f) * 0.5s) ease-out;
-}
-
 .nav-link {
   cursor: pointer;
   outline: none;
@@ -227,7 +207,6 @@ body {
 .scroll-view {
   height: 100vh;
   width: 100vw;
-  width: var(--main-body-change-size, 100vw);
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;
@@ -240,7 +219,7 @@ body {
 
 @media only screen and (hover: none) {
   .scroll-view {
-    border-radius: 0.8rem;
+    border-radius: 1.4rem;
     border-bottom-right-radius: initial;
     border-top-right-radius: initial;
     box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.4);
@@ -279,7 +258,6 @@ body {
 @media only screen and (hover: none) {
   .navigation {
     border-top-left-radius: 0.8rem;
-    transform: translateX(calc(100vw - var(--main-body-change-size)));
   }
 }
 .navigation {
@@ -330,7 +308,6 @@ body {
   display: none;
 }
 .navigation__button-container {
-  transform: translateX(calc(100vw - var(--main-body-change-size)));
   display: flex;
   align-items: center;
   height: 72px;
@@ -370,6 +347,7 @@ body {
 }
 .navigation__icon::before, .navigation__icon::after {
   content: "";
+  transition: all 0.2s ease-out;
   grid-column: 1/-1;
 }
 .navigation__icon::before {
@@ -405,27 +383,6 @@ body {
   grid-row: 1/-1;
   transform: rotate(-135deg);
 }
-.checkbox-transition + .navigation__button .navigation__icon span, .checkbox-transition:checked + .navigation__button .navigation__icon span {
-  background-color: transparent;
-}
-.checkbox-transition + .navigation__button .navigation__icon::before, .checkbox-transition + .navigation__button .navigation__icon::after, .checkbox-transition:checked + .navigation__button .navigation__icon::before, .checkbox-transition:checked + .navigation__button .navigation__icon::after {
-  grid-row: 1/-1;
-}
-.checkbox-transition + .navigation__button .navigation__icon::before, .checkbox-transition:checked + .navigation__button .navigation__icon::before {
-  transform: rotate(calc(var(--f) * 135deg));
-}
-.checkbox-transition + .navigation__button .navigation__icon::after, .checkbox-transition:checked + .navigation__button .navigation__icon::after {
-  transform: rotate(calc(var(--f) * -135deg));
-}
-.button-icon-animation--1 + .navigation__button .navigation__icon::before, .button-icon-animation--1 + .navigation__button .navigation__icon::after {
-  transition: all 0.2s ease-out;
-}
-.button-icon-animation--2 + .navigation__button .navigation__icon::before, .button-icon-animation--2 + .navigation__button .navigation__icon::after {
-  transition: all calc((1 - var(--f)) * 0.2s) ease-out;
-}
-.button-icon-animation--3 + .navigation__button .navigation__icon::before, .button-icon-animation--3 + .navigation__button .navigation__icon::after {
-  transition: all calc(var(--f) * 0.2s) ease-out;
-}
 
 .backdrop {
   position: absolute;
@@ -459,7 +416,7 @@ body {
   margin-left: -2%;
   height: 99.8%;
   width: 95%;
-  border-radius: 0.8rem;
+  border-radius: 1.4rem;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
   background-color: #fecd1a;
   padding: 8vw 8vw;
