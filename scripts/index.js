@@ -1,5 +1,3 @@
-const changeInMainBodyWidthEvent = new Event('changeInMainBodyWidth');
-
 const sideDrawer = document.getElementById('mobile-nav');
 const mainBody = document.getElementById('body');
 
@@ -11,17 +9,14 @@ const accompanyOneEl = document.getElementById('accompany-1');
 const bgImg1 = document.getElementById('bg-img-1');
 
 let bodySizes = null;
-let interval1 = null;
-let timeout1 = null;
+let timeoutCounter = null;
 
 let mainBodyShrinkSize = 0; // Add media queries later here
 let sideDrawerWidth = 0;
 let factor = 0;
 
-const onChangeInMainBodyWidth = ev => {
-  factor = ev
-    ? ev.target.offsetLeft / sideDrawerWidth
-    : mainBody.getBoundingClientRect().x / sideDrawerWidth;
+const onChangeInMainBodyWidth = () => {
+  factor = mainBody.offsetLeft / sideDrawerWidth;
   document.body.style.setProperty('--f', factor.toFixed(2));
   backdrop.style.opacity = factor.toFixed(2);
 };
@@ -41,7 +36,8 @@ let tempX = null;
 let counterToStopFps = 0;
 
 const stopfps = () => {
-  clearInterval(fps);
+  console.log('stop');
+  cancelAnimationFrame(fps);
   fps = null;
   tempX = null;
   counterToStopFps = 0;
@@ -67,19 +63,28 @@ const stopfps = () => {
 };
 
 const triggeringChangeInMainBodyWidth = () => {
-  if (tempX === mainBody.offsetLeft) {
+  fps = requestAnimationFrame(triggeringChangeInMainBodyWidth);
+  if (tempX === mainBody.clientWidth) {
+    console.log('counterUpdate');
     counterToStopFps++;
-    if (counterToStopFps >= 10) {
+
+    if (counterToStopFps >= 8) {
       stopfps();
     }
     return;
   }
-  mainBody.dispatchEvent(changeInMainBodyWidthEvent);
-  tempX = mainBody.offsetLeft;
+  onChangeInMainBodyWidth();
+  tempX = mainBody.clientWidth;
+  console.log('width change');
 };
 
 const startfps = () => {
-  fps = setInterval(triggeringChangeInMainBodyWidth, 16);
+  console.log('start');
+  cancelAnimationFrame(fps);
+  fps = null;
+  tempX = null;
+  counterToStopFps = 0;
+  fps = requestAnimationFrame(triggeringChangeInMainBodyWidth);
 };
 
 // Menu Button Click Handler
@@ -102,121 +107,121 @@ const menuToggleClickHandler = () => {
 };
 
 // Touch Handlers Start
-let x0 = null;
+// let x0 = null;
 
-const moveAndOtherTouchListenersRemoved = ev => {
-  let dx = ev.changedTouches[0].clientX - x0;
-  let s = Math.sign(dx);
+// const moveAndOtherTouchListenersRemoved = ev => {
+//   let dx = ev.changedTouches[0].clientX - x0;
+//   let s = Math.sign(dx);
 
-  menuToggle.classList.remove('checkbox-transition');
+//   menuToggle.classList.remove('checkbox-transition');
 
-  if (s > 0) {
-    if (factor.toFixed(2) > 0.25) {
-      startfps();
-      menuToggle.classList.add('.button-icon-animation--2');
-      mainBody.classList.add('smooth-animation--2');
-      navbar.classList.add('smooth-animation--2');
-      navbar.previousElementSibling.classList.add('smooth-animation--2');
+//   if (s > 0) {
+//     if (factor.toFixed(2) > 0.25) {
+//       startfps();
+//       menuToggle.classList.add('.button-icon-animation--2');
+//       mainBody.classList.add('smooth-animation--2');
+//       navbar.classList.add('smooth-animation--2');
+//       navbar.previousElementSibling.classList.add('smooth-animation--2');
 
-      menuToggle.checked = true;
+//       menuToggle.checked = true;
 
-      mainBody.classList.add('scroll-view-shrink');
-      navbar.classList.add('navigation-move');
-      navbar.previousElementSibling.classList.add('navigation-move');
-    } else {
-      startfps();
-      backdrop.classList.remove('backdrop-display');
+//       mainBody.classList.add('scroll-view-shrink');
+//       navbar.classList.add('navigation-move');
+//       navbar.previousElementSibling.classList.add('navigation-move');
+//     } else {
+//       startfps();
+//       backdrop.classList.remove('backdrop-display');
 
-      menuToggle.classList.add('.button-icon-animation--3');
-      mainBody.classList.add('smooth-animation--3');
-      navbar.classList.add('smooth-animation--3');
-      navbar.previousElementSibling.classList.add('smooth-animation--3');
+//       menuToggle.classList.add('.button-icon-animation--3');
+//       mainBody.classList.add('smooth-animation--3');
+//       navbar.classList.add('smooth-animation--3');
+//       navbar.previousElementSibling.classList.add('smooth-animation--3');
 
-      menuToggle.checked = false;
-    }
-  }
+//       menuToggle.checked = false;
+//     }
+//   }
 
-  if (s < 0) {
-    if (factor.toFixed(2) < 0.75) {
-      startfps();
-      menuToggle.classList.add('.button-icon-animation--3');
-      mainBody.classList.add('smooth-animation--3');
-      navbar.classList.add('smooth-animation--3');
-      navbar.previousElementSibling.classList.add('smooth-animation--3');
+//   if (s < 0) {
+//     if (factor.toFixed(2) < 0.75) {
+//       startfps();
+//       menuToggle.classList.add('.button-icon-animation--3');
+//       mainBody.classList.add('smooth-animation--3');
+//       navbar.classList.add('smooth-animation--3');
+//       navbar.previousElementSibling.classList.add('smooth-animation--3');
 
-      menuToggle.checked = false;
+//       menuToggle.checked = false;
 
-      mainBody.classList.remove('scroll-view-shrink');
-    } else {
-      startfps();
-      menuToggle.classList.add('.button-icon-animation--2');
-      mainBody.classList.add('smooth-animation--2');
-      navbar.classList.add('smooth-animation--2');
-      navbar.previousElementSibling.classList.add('smooth-animation--2');
+//       mainBody.classList.remove('scroll-view-shrink');
+//     } else {
+//       startfps();
+//       menuToggle.classList.add('.button-icon-animation--2');
+//       mainBody.classList.add('smooth-animation--2');
+//       navbar.classList.add('smooth-animation--2');
+//       navbar.previousElementSibling.classList.add('smooth-animation--2');
 
-      navbar.classList.add('navigation-move');
-      navbar.previousElementSibling.classList.add('navigation-move');
+//       navbar.classList.add('navigation-move');
+//       navbar.previousElementSibling.classList.add('navigation-move');
 
-      menuToggle.checked = true;
-    }
-  }
+//       menuToggle.checked = true;
+//     }
+//   }
 
-  x0 = null;
-  document.body.style.removeProperty('--main-body-change-size');
+//   x0 = null;
+//   document.body.style.removeProperty('--main-body-change-size');
 
-  window.removeEventListener('touchmove', touchDrag);
-  window.removeEventListener('touchend', moveAndOtherTouchListenersRemoved);
-};
+//   window.removeEventListener('touchmove', touchDrag);
+//   window.removeEventListener('touchend', moveAndOtherTouchListenersRemoved);
+// };
 
-const touchDrag = ev => {
-  clearInterval(fps);
-  clearInterval(interval1);
-  clearTimeout(timeout1);
-  interval1 = null;
-  timeout1 = null;
-  fps = null;
+// const touchDrag = ev => {
+//   clearInterval(fps);
+//   clearInterval(interval1);
+//   clearTimeout(timeout1);
+//   interval1 = null;
+//   timeout1 = null;
+//   fps = null;
 
-  let dx = ev.changedTouches[0].clientX - x0;
-  let s = Math.sign(dx);
-  let changedBodySize = null;
+//   let dx = ev.changedTouches[0].clientX - x0;
+//   let s = Math.sign(dx);
+//   let changedBodySize = null;
 
-  let dxa = Math.abs(dx);
+//   let dxa = Math.abs(dx);
 
-  if (dxa > sideDrawerWidth) {
-    return;
-  }
+//   if (dxa > sideDrawerWidth) {
+//     return;
+//   }
 
-  if (s > 0 && !menuToggle.checked) {
-    menuToggle.classList.add('checkbox-transition');
-    backdrop.classList.add('backdrop-display');
-    changedBodySize = (bodySizes.width - dxa).toFixed(2);
-    document.body.style.setProperty('--main-body-change-size', changedBodySize + 'px');
-    onChangeInMainBodyWidth();
-  }
-  if (s < 0 && menuToggle.checked) {
-    menuToggle.classList.add('checkbox-transition');
-    navbar.classList.remove('navigation-move');
-    navbar.previousElementSibling.classList.remove('navigation-move');
-    changedBodySize = (+mainBodyShrinkSize + dxa).toFixed(2);
-    document.body.style.setProperty('--main-body-change-size', changedBodySize + 'px');
-    onChangeInMainBodyWidth();
-  }
-};
+//   if (s > 0 && !menuToggle.checked) {
+//     menuToggle.classList.add('checkbox-transition');
+//     backdrop.classList.add('backdrop-display');
+//     changedBodySize = (bodySizes.width - dxa).toFixed(2);
+//     document.body.style.setProperty('--main-body-change-size', changedBodySize + 'px');
+//     onChangeInMainBodyWidth();
+//   }
+//   if (s < 0 && menuToggle.checked) {
+//     menuToggle.classList.add('checkbox-transition');
+//     navbar.classList.remove('navigation-move');
+//     navbar.previousElementSibling.classList.remove('navigation-move');
+//     changedBodySize = (+mainBodyShrinkSize + dxa).toFixed(2);
+//     document.body.style.setProperty('--main-body-change-size', changedBodySize + 'px');
+//     onChangeInMainBodyWidth();
+//   }
+// };
 
-const lockAndOtherTouchListenersAdded = ev => {
-  clearInterval(fps);
-  clearInterval(interval1);
-  clearTimeout(timeout1);
-  interval1 = null;
-  timeout1 = null;
-  fps = null;
-  if (!ev.changedTouches) {
-    return;
-  }
-  x0 = ev.changedTouches[0].clientX;
-  window.addEventListener('touchmove', touchDrag);
-  window.addEventListener('touchend', moveAndOtherTouchListenersRemoved);
-};
+// const lockAndOtherTouchListenersAdded = ev => {
+//   clearInterval(fps);
+//   clearInterval(interval1);
+//   clearTimeout(timeout1);
+//   interval1 = null;
+//   timeout1 = null;
+//   fps = null;
+//   if (!ev.changedTouches) {
+//     return;
+//   }
+//   x0 = ev.changedTouches[0].clientX;
+//   window.addEventListener('touchmove', touchDrag);
+//   window.addEventListener('touchend', moveAndOtherTouchListenersRemoved);
+// };
 // Touch Handlers Start
 
 // Positioning hero elements realative to the phone-bezel
@@ -266,24 +271,15 @@ const posHandler = () => {
   );
 };
 
-// Adding a listener to changeInMainBodyWidth
-mainBody.addEventListener('changeInMainBodyWidth', onChangeInMainBodyWidth);
 // Adding an onscroll listener
 mainBody.addEventListener('scroll', onScroll);
 // Adding an onchange listener to menu button
 menuToggle.addEventListener('change', () => {
-  clearInterval(fps);
-  clearInterval(interval1);
-  clearTimeout(timeout1);
-  interval1 = null;
-  timeout1 = null;
-  fps = null;
-
   menuToggleClickHandler();
   startfps();
 });
 // Adding listener for touch-screen users
-window.addEventListener('touchstart', lockAndOtherTouchListenersAdded, false);
+// window.addEventListener('touchstart', lockAndOtherTouchListenersAdded, false);
 
 const ready = () => {
   const menuToggleSizes = document.getElementById('navi-toggle-displayed').getBoundingClientRect();
@@ -298,18 +294,20 @@ const ready = () => {
   document.body.style.setProperty('--main-body-shrink-size', mainBodyShrinkSize + 'px');
   document.body.style.setProperty('--side-drawer-width', sideDrawerWidth + 'px');
 
-  clearInterval(interval1);
-  clearTimeout(timeout1);
-  interval1 = null;
-  timeout1 = null;
-
-  interval1 = setInterval(posHandler, 16);
-  timeout1 = setTimeout(() => {
-    clearInterval(interval1);
-    clearTimeout(timeout1);
-    interval1 = null;
-    timeout1 = null;
-  }, 50);
+  fps = null;
+  timeoutCounter = 0;
+  let startfps = () => {
+    posHandler();
+    fps = requestAnimationFrame(startfps);
+    if (timeoutCounter >= 3) {
+      cancelAnimationFrame(fps);
+      fps = null;
+      timeoutCounter = null;
+      startfps = null;
+    }
+    timeoutCounter++;
+  };
+  fps = requestAnimationFrame(startfps);
 };
 
 window.onload = ready;
