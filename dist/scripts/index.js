@@ -5,8 +5,10 @@ const backdrop = document.getElementById('backdrop');
 const menuToggle = document.getElementById('navi-toggle');
 const navbar = document.getElementById('navbar');
 const phoneBezelDiv = document.getElementById('phone-bezel-div');
+const bgImgOneEl = document.getElementById('bg-img-1');
 const accompanyOneEl = document.getElementById('accompany-1');
-const bgImg1 = document.getElementById('bg-img-1');
+const accompanyThreeEl = document.getElementById('accompany-3');
+const bgImgThreeEl = document.getElementById('bg-img-3');
 
 let bodySizes = null;
 let timeoutCounter = null;
@@ -15,6 +17,36 @@ let fps = null;
 let mainBodyShrinkSize = 0; // Add media queries later here
 let sideDrawerWidth = 0;
 let factor = 0;
+
+const ready = () => {
+  const menuToggleSizes = document.getElementById('navi-toggle-displayed').getBoundingClientRect();
+  bodySizes = document.body.getBoundingClientRect();
+
+  mainBodyShrinkSize = +(40 + menuToggleSizes.width).toFixed(2); // Add media queries later here
+  sideDrawerWidth = +(bodySizes.width - mainBodyShrinkSize).toFixed(2);
+
+  // Giving vw unit to the body and setting the size of the side drawer
+  sideDrawer.style.width = sideDrawerWidth + 'px';
+  navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
+  navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
+  document.body.style.setProperty('--vw', bodySizes.width / 100 + 'px');
+  document.body.style.setProperty('--side-drawer-width', sideDrawerWidth + 'px');
+
+  fps = null;
+  timeoutCounter = 0;
+  let startfps = () => {
+    posHandler();
+    fps = requestAnimationFrame(startfps);
+    if (timeoutCounter >= 10) {
+      cancelAnimationFrame(fps);
+      fps = null;
+      timeoutCounter = null;
+      startfps = null;
+    }
+    timeoutCounter++;
+  };
+  fps = requestAnimationFrame(startfps);
+};
 
 const animate = item => {
   const duration = item.time * 1000;
@@ -81,6 +113,9 @@ const menuToggleClickHandler = () => {
       backward: true,
       onComplete: () => {
         backdrop.classList.remove('backdrop-display');
+        mainBody.style.removeProperty('width');
+        navbar.style.removeProperty('transform');
+        navbar.previousElementSibling.style.removeProperty('transform');
       },
     });
   }
@@ -123,6 +158,9 @@ const moveAndOtherTouchListenersRemoved = ev => {
       },
       onComplete: () => {
         backdrop.classList.remove('backdrop-display');
+        mainBody.style.removeProperty('width');
+        navbar.style.removeProperty('transform');
+        navbar.previousElementSibling.style.removeProperty('transform');
       },
     });
   }
@@ -187,12 +225,12 @@ const posHandler = () => {
   const editedPhoneBezelDivSizes = {
     height: phoneBezelDivSizes.height - bezelPsuedoElementHeight * 2,
     width: phoneBezelDivSizes.width,
-    x: phoneBezelDivSizes.x - bodySizes.x,
+    x: phoneBezelDivSizes.x - mainBody.offsetLeft,
     y: phoneBezelDivSizes.y + bezelPsuedoElementHeight + scrolledPosition,
     top: phoneBezelDivSizes.top + bezelPsuedoElementHeight + scrolledPosition,
     bottom: phoneBezelDivSizes.bottom - bezelPsuedoElementHeight + scrolledPosition,
-    left: phoneBezelDivSizes.left - bodySizes.x,
-    right: phoneBezelDivSizes.right - bodySizes.x,
+    left: phoneBezelDivSizes.left - mainBody.offsetLeft,
+    right: phoneBezelDivSizes.right - mainBody.offsetLeft,
   };
 
   document.body.style.setProperty('--unit', editedPhoneBezelDivSizes.height / 100 + 'px');
@@ -203,22 +241,38 @@ const posHandler = () => {
   // console.log(phoneBezelDivSizes);
   // console.log(editedPhoneBezelDivSizes);
 
-  accompanyOneEl.style.setProperty(
-    '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.75 + 'px',
-  );
-  accompanyOneEl.style.setProperty(
-    '--pos-left',
-    editedPhoneBezelDivSizes.x + editedPhoneBezelDivSizes.width * 1.25 + 'px',
-  );
-  bgImg1.style.setProperty(
+  bgImgOneEl.style.setProperty(
     '--pos-top',
     editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
   );
-  bgImg1.style.setProperty(
+  bgImgOneEl.style.setProperty(
     '--pos-left',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.width * 0 + 'px',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.5 + 'px',
   );
+  accompanyOneEl.style.setProperty(
+    '--pos-top',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.1 + 'px',
+  );
+  accompanyOneEl.style.setProperty(
+    '--pos-left',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.8 + 'px',
+  );
+  // accompanyThreeEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.75 + 'px',
+  // );
+  // accompanyThreeEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.x + editedPhoneBezelDivSizes.width * 1.25 + 'px',
+  // );
+  // bgImgThreeEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
+  // );
+  // bgImgThreeEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.width * 0 + 'px',
+  // );
 };
 
 // Adding an onscroll listener
@@ -227,36 +281,6 @@ mainBody.addEventListener('scroll', onScroll);
 menuToggle.addEventListener('change', menuToggleClickHandler);
 // Adding listener for touch-screen users
 window.addEventListener('touchstart', lockAndOtherTouchListenersAdded, false);
-
-const ready = () => {
-  const menuToggleSizes = document.getElementById('navi-toggle-displayed').getBoundingClientRect();
-  bodySizes = document.body.getBoundingClientRect();
-
-  mainBodyShrinkSize = +(40 + menuToggleSizes.width).toFixed(2); // Add media queries later here
-  sideDrawerWidth = +(bodySizes.width - mainBodyShrinkSize).toFixed(2);
-
-  // Giving vw unit to the body and setting the size of the side drawer
-  sideDrawer.style.width = sideDrawerWidth + 'px';
-  navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
-  navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
-  document.body.style.setProperty('--vw', bodySizes.width / 100 + 'px');
-  document.body.style.setProperty('--side-drawer-width', sideDrawerWidth + 'px');
-
-  fps = null;
-  timeoutCounter = 0;
-  let startfps = () => {
-    posHandler();
-    fps = requestAnimationFrame(startfps);
-    if (timeoutCounter >= 10) {
-      cancelAnimationFrame(fps);
-      fps = null;
-      timeoutCounter = null;
-      startfps = null;
-    }
-    timeoutCounter++;
-  };
-  fps = requestAnimationFrame(startfps);
-};
 
 window.onload = ready;
 window.addEventListener('resize', ready);
