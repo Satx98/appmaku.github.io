@@ -4,7 +4,6 @@ const mainBody = document.getElementById('body');
 const backdrop = document.getElementById('backdrop');
 const menuToggle = document.getElementById('navi-toggle');
 const navbar = document.getElementById('navbar');
-const navIcon = document.getElementById('navigation-icon');
 const phoneBezelDiv = document.getElementById('phone-bezel-div');
 const accompanyOneEl = document.getElementById('accompany-1');
 const bgImg1 = document.getElementById('bg-img-1');
@@ -34,9 +33,8 @@ const animate = item => {
       return item.onComplete ? item.onComplete() : null;
     } else {
       const rate = item.backward
-        ? 1 - Math.sin(Math.pow(remaining / duration, 3))
-        : Math.sin(Math.pow(remaining / duration, 3));
-      // console.log(rate);
+        ? Math.pow(Math.cos(remaining / duration), 3)
+        : 1 - Math.pow(Math.cos(remaining / duration), 3);
       item.run(rate);
     }
     requestAnimationFrame(step);
@@ -51,6 +49,9 @@ const onScroll = () => {
   if (scrolledPosition * 0.0007 <= 0.1) {
     navbar.style.boxShadow = '0 0 1rem rgba(0, 0, 0,' + scrolledPosition * 0.0007 + ')';
   }
+
+  navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
+  navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
 };
 
 // Menu Button Click Handler
@@ -61,11 +62,9 @@ const menuToggleClickHandler = () => {
       time: 0.5,
       run: rate => {
         factor = 1 - rate;
-        mainBody.style.width = rate * +sideDrawerWidth + +mainBodyShrinkSize + 'px';
-        navbar.style.transform = `translateX(${factor * +sideDrawerWidth}px)`;
-        navbar.previousElementSibling.style.transform = `translateX(${
-          factor * +sideDrawerWidth
-        }px)`;
+        mainBody.style.width = rate * sideDrawerWidth + mainBodyShrinkSize + 'px';
+        navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
+        navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
         backdrop.style.opacity = factor * 1;
       },
     });
@@ -74,11 +73,9 @@ const menuToggleClickHandler = () => {
       time: 0.5,
       run: rate => {
         factor = 1 - rate;
-        mainBody.style.width = rate * +sideDrawerWidth + +mainBodyShrinkSize + 'px';
-        navbar.style.transform = `translateX(${factor * +sideDrawerWidth}px)`;
-        navbar.previousElementSibling.style.transform = `translateX(${
-          factor * +sideDrawerWidth
-        }px)`;
+        mainBody.style.width = rate * sideDrawerWidth + mainBodyShrinkSize + 'px';
+        navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
+        navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
         backdrop.style.opacity = factor * 1;
       },
       backward: true,
@@ -96,36 +93,32 @@ const moveAndOtherTouchListenersRemoved = ev => {
   let dx = ev.changedTouches[0].clientX - x0;
   let s = Math.sign(dx);
 
-  if ((s > 0 && factor.toFixed(2) > 0.25) || (s < 0 && factor.toFixed(2) >= 0.75)) {
+  if ((s > 0 && factor > 0.25) || (s < 0 && factor >= 0.75)) {
     menuToggle.checked = true;
 
     animate({
       time: 0.5 * (1 - factor),
       run: rate => {
-        factor = mainBody.offsetLeft / +sideDrawerWidth;
+        factor = mainBody.offsetLeft / sideDrawerWidth;
         mainBody.style.width =
-          rate * (mainBody.clientWidth - +mainBodyShrinkSize) + +mainBodyShrinkSize + 'px';
-        navbar.style.transform = `translateX(${factor * +sideDrawerWidth}px)`;
-        navbar.previousElementSibling.style.transform = `translateX(${
-          factor * +sideDrawerWidth
-        }px)`;
+          rate * (mainBody.clientWidth - mainBodyShrinkSize) + mainBodyShrinkSize + 'px';
+        navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
+        navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
         backdrop.style.opacity = factor * 1;
       },
     });
   }
 
-  if ((s < 0 && factor.toFixed(2) < 0.75) || (s > 0 && factor.toFixed(2) <= 0.25)) {
+  if ((s < 0 && factor < 0.75) || (s > 0 && factor <= 0.25)) {
     menuToggle.checked = false;
 
     animate({
       time: 0.5 * factor,
       run: rate => {
-        factor = mainBody.offsetLeft / +sideDrawerWidth;
+        factor = mainBody.offsetLeft / sideDrawerWidth;
         mainBody.style.width = bodySizes.width - rate * mainBody.offsetLeft + 'px';
-        navbar.style.transform = `translateX(${factor * +sideDrawerWidth}px)`;
-        navbar.previousElementSibling.style.transform = `translateX(${
-          factor * +sideDrawerWidth
-        }px)`;
+        navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
+        navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
         backdrop.style.opacity = factor * 1;
       },
       onComplete: () => {
@@ -135,7 +128,6 @@ const moveAndOtherTouchListenersRemoved = ev => {
   }
 
   x0 = null;
-  changedBodySize = null;
 
   window.removeEventListener('touchmove', touchDrag);
   window.removeEventListener('touchend', moveAndOtherTouchListenersRemoved);
@@ -144,9 +136,8 @@ const moveAndOtherTouchListenersRemoved = ev => {
 const touchDrag = ev => {
   let dx = ev.changedTouches[0].clientX - x0;
   let s = Math.sign(dx);
-  let changedBodySize = null;
-
   let dxa = Math.abs(dx);
+  let changedBodySize = null;
 
   if (dxa > sideDrawerWidth) {
     return;
@@ -156,16 +147,16 @@ const touchDrag = ev => {
     if (![...backdrop.classList].includes('backdrop-display')) {
       backdrop.classList.add('backdrop-display');
     }
-    factor = dxa / +sideDrawerWidth;
+    factor = dxa / sideDrawerWidth;
     changedBodySize = bodySizes.width - dxa;
 
     navbar.style.transform = `translateX(${dxa}px)`;
     navbar.previousElementSibling.style.transform = `translateX(${dxa}px)`;
   }
   if (s < 0 && menuToggle.checked) {
-    const diff = +sideDrawerWidth - dxa;
-    factor = diff / +sideDrawerWidth;
-    changedBodySize = +mainBodyShrinkSize + dxa;
+    const diff = sideDrawerWidth - dxa;
+    factor = diff / sideDrawerWidth;
+    changedBodySize = mainBodyShrinkSize + dxa;
 
     navbar.style.transform = `translateX(${diff}px)`;
     navbar.previousElementSibling.style.transform = `translateX(${diff}px)`;
@@ -241,15 +232,14 @@ const ready = () => {
   const menuToggleSizes = document.getElementById('navi-toggle-displayed').getBoundingClientRect();
   bodySizes = document.body.getBoundingClientRect();
 
-  mainBodyShrinkSize = (40 + menuToggleSizes.width).toFixed(2); // Add media queries later here
-  sideDrawerWidth = (bodySizes.width - mainBodyShrinkSize).toFixed(2);
+  mainBodyShrinkSize = +(40 + menuToggleSizes.width).toFixed(2); // Add media queries later here
+  sideDrawerWidth = +(bodySizes.width - mainBodyShrinkSize).toFixed(2);
 
   // Giving vw unit to the body and setting the size of the side drawer
   sideDrawer.style.width = sideDrawerWidth + 'px';
   navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
   navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
   document.body.style.setProperty('--vw', bodySizes.width / 100 + 'px');
-  // document.body.style.setProperty('--main-body-shrink-size', mainBodyShrinkSize + 'px');
   document.body.style.setProperty('--side-drawer-width', sideDrawerWidth + 'px');
 
   fps = null;
@@ -257,7 +247,7 @@ const ready = () => {
   let startfps = () => {
     posHandler();
     fps = requestAnimationFrame(startfps);
-    if (timeoutCounter >= 3) {
+    if (timeoutCounter >= 10) {
       cancelAnimationFrame(fps);
       fps = null;
       timeoutCounter = null;
