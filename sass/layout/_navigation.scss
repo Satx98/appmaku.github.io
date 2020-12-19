@@ -1,7 +1,6 @@
 @media only screen and (hover: none) {
   .navigation {
-    border-top-left-radius: 0.8rem;
-    // transform: translateX(calc(100vw - var(--main-body-change-size))); JavaScript Animation
+    border-top-left-radius: 1.4rem;
   }
 }
 
@@ -61,8 +60,6 @@
   }
 
   &__button-container {
-    // transform: translateX(calc(100vw - var(--main-body-change-size))); JavaScript Animation
-
     display: flex;
     align-items: center;
     height: 72px;
@@ -159,40 +156,6 @@
     grid-row: 1 / -1;
     transform: rotate(-135deg);
   }
-
-  // .checkbox-transition + &__button &__icon span,    JavaScript Animation
-  // .checkbox-transition:checked + &__button &__icon span {
-  //   background-color: transparent;
-  // }
-
-  // .checkbox-transition + &__button &__icon::before,
-  // .checkbox-transition + &__button &__icon::after,
-  // .checkbox-transition:checked + &__button &__icon::before,
-  // .checkbox-transition:checked + &__button &__icon::after {
-  //   grid-row: 1 / -1;
-  // }
-  // .checkbox-transition + &__button &__icon::before,
-  // .checkbox-transition:checked + &__button &__icon::before {
-  //   transform: rotate(calc(var(--f) * 135deg));
-  // }
-  // .checkbox-transition + &__button &__icon::after,
-  // .checkbox-transition:checked + &__button &__icon::after {
-  //   transform: rotate(calc(var(--f) * -135deg));
-  // }
-
-  // // Utilities
-  // .button-icon-animation--1 + &__button &__icon::before,
-  // .button-icon-animation--1 + &__button &__icon::after {
-  //   transition: all 0.2s ease-out;
-  // }
-  // .button-icon-animation--2 + &__button &__icon::before,
-  // .button-icon-animation--2 + &__button &__icon::after {
-  //   transition: all calc((1 - var(--f)) * 0.2s) ease-out;
-  // }
-  // .button-icon-animation--3 + &__button &__icon::before,
-  // .button-icon-animation--3 + &__button &__icon::after {
-  //   transition: all calc(var(--f) * 0.2s) ease-out;
-  // }
 }
 
 .backdrop {

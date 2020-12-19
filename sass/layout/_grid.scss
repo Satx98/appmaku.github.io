@@ -1,7 +1,7 @@
 .scroll-view {
+  // affected by media query
   height: 100vh;
   width: 100vw;
-  // width: var(--main-body-change-size, 100vw); JavaScript Animation
   overflow-y: scroll;
   overflow-x: hidden;
   position: absolute;
@@ -10,15 +10,14 @@
   z-index: 2;
   background-color: $color-white;
   animation: moveInRight 2s ease-out infinite;
-}
 
-@media only screen and (hover: none) {
-  .scroll-view {
-    border-radius: 1.4rem;
-    border-bottom-right-radius: initial;
-    border-top-right-radius: initial;
-    box-shadow: 0px 0px 1rem rgba($color: $color-black, $alpha: 0.4);
-  }
+  border-radius: 1.4rem;
+  border-bottom-right-radius: initial;
+  border-top-right-radius: initial;
+  box-shadow: 0px 0px 1rem rgba($color: $color-black, $alpha: 0.4);
+
+  border: 1px solid $color-d;
+  border-right: none;
 }
 
 .container {

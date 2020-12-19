@@ -83,7 +83,7 @@ body {
 
 @media only screen and (hover: none) {
   .hero {
-    border-top-left-radius: 0.8rem;
+    border-top-left-radius: 1.4rem;
   }
 }
 .hero {
@@ -215,16 +215,14 @@ body {
   z-index: 2;
   background-color: #fff;
   animation: moveInRight 2s ease-out infinite;
+  border-radius: 1.4rem;
+  border-bottom-right-radius: initial;
+  border-top-right-radius: initial;
+  box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.4);
+  border: 1px solid #fecd1a;
+  border-right: none;
 }
 
-@media only screen and (hover: none) {
-  .scroll-view {
-    border-radius: 1.4rem;
-    border-bottom-right-radius: initial;
-    border-top-right-radius: initial;
-    box-shadow: 0px 0px 1rem rgba(0, 0, 0, 0.4);
-  }
-}
 .container {
   display: grid;
   width: 100vw;
@@ -257,7 +255,7 @@ body {
 
 @media only screen and (hover: none) {
   .navigation {
-    border-top-left-radius: 0.8rem;
+    border-top-left-radius: 1.4rem;
   }
 }
 .navigation {
