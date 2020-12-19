@@ -180,7 +180,7 @@
 
   &__globe-icon {
     height: calc(12 * var(--unit));
-    height: calc(12 * var(--unit));
+    width: calc(12 * var(--unit));
 
     fill: currentColor;
   }
@@ -201,6 +201,7 @@
 
       display: flex;
       align-items: flex-end;
+      justify-content: flex-end;
       font-size: calc(3 * var(--unit));
 
       color: rgba($color-white, 0.5);
@@ -212,7 +213,7 @@
         width: calc(60 * var(--unit));
         height: calc(30 * var(--unit));
 
-        background-color: rgba($color-b, 0.4);
+        background-color: rgba($color-c, 0.4);
 
         left: calc(15 * var(--unit));
       }
@@ -270,7 +271,34 @@
     //   opacity: 0.9;
     // }
   }
+
+  &__speaker-icon {
+    height: calc(24 * var(--unit));
+    width: calc(24 * var(--unit));
+
+    fill: currentColor;
+  }
+
   &__spacefiller {
+    &--1 {
+      @extend .changeTranslate;
+
+      width: calc(40 * var(--unit));
+      height: calc(60 * var(--unit));
+      padding-left: calc(5 * var(--unit));
+
+      // border-radius: calc(5 * var(--unit));
+
+      top: var(--pos-top, 9999px);
+      left: var(--pos-left, 9999px);
+
+      background-color: rgba($color-d, 0.4);
+      color: rgba($color-white, 0.5);
+
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
     // &--3 {
     //   @extend .changeTranslate;
 
