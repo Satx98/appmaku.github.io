@@ -8,6 +8,9 @@ const phoneBezelDiv = document.getElementById('phone-bezel-div');
 const bgImgOneEl = document.getElementById('bg-img-1');
 const accompanyOneEl = document.getElementById('accompany-1');
 const spacefillerOneEl = document.getElementById('spacefiller-1');
+const bgImgTwoEl = document.getElementById('bg-img-2');
+const accompanyTwoEl = document.getElementById('accompany-2');
+const spacefillerTwoEl = document.getElementById('spacefiller-2');
 const accompanyThreeEl = document.getElementById('accompany-3');
 const bgImgThreeEl = document.getElementById('bg-img-3');
 
@@ -89,9 +92,6 @@ const onScroll = () => {
   if (scrolledPosition * 0.0007 <= 0.1) {
     navbar.style.boxShadow = '0 0 1rem rgba(0, 0, 0,' + scrolledPosition * 0.0007 + ')';
   }
-
-  navbar.style.transform = `translateX(${mainBody.offsetLeft}px)`;
-  navbar.previousElementSibling.style.transform = `translateX(${mainBody.offsetLeft}px)`;
 };
 
 // Menu Button Click Handler
@@ -263,6 +263,32 @@ const posHandler = () => {
   //   '--pos-left',
   //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.2 + 'px',
   // );
+
+  bgImgTwoEl.style.setProperty(
+    '--pos-top',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.35 + 'px',
+  );
+  bgImgTwoEl.style.setProperty(
+    '--pos-left',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.15 + 'px',
+  );
+  accompanyTwoEl.style.setProperty(
+    '--pos-top',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.7 + 'px',
+  );
+  accompanyTwoEl.style.setProperty(
+    '--pos-left',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.1 + 'px',
+  );
+  // spacefillerOneEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.7 + 'px',
+  // );
+  // spacefillerOneEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.2 + 'px',
+  // );
+
   // accompanyThreeEl.style.setProperty(
   //   '--pos-top',
   //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.75 + 'px',

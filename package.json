@@ -2,16 +2,19 @@
   "name": "appmaku",
   "version": "1.0.0",
   "description": "A landing page for appmaku",
-  "main": "index.js",
+  "private": "true",
   "scripts": {
-    "watch:sass": "sass --watch sass/main.scss dist/styles/main.css",
-    "devserver": "live-server --open='./dist/'",
-    "start": "npm-run-all --parallel devserver watch:sass",
+    "watch:webpack": "webpack --watch",
+    "watch:sass": "sass --watch sass/main.scss build/styles/main.css",
+    "devserver": "live-server --open=build",
+    "start": "npm-run-all --parallel devserver watch:sass watch:webpack",
     "compile:sass": "sass sass/main.scss temp/style.comp.css",
     "prefix:css": "postcss --use autoprefixer -b \"last 10 versions\" temp/style.comp.css -o temp/style.prefix.css",
-    "compress:css": "sass temp/style.prefix.css dist/styles/main.css --style compressed",
+    "compress:css": "sass temp/style.prefix.css build/styles/main.css --style compressed",
     "build:css": "npm-run-all compile:sass prefix:css compress:css",
-    "deploy": "gh-pages -d dist"
+    "build:js": "webpack",
+    "build": "npm-run-all build:css build:js",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -19,15 +22,25 @@
   },
   "author": "Satadru Roy",
   "license": "ISC",
+  "browserslist": "> 0.1%, not dead",
   "bugs": {
     "url": "https://github.com/Satx98/appmaku.github.io.git/issues"
   },
   "homepage": "https://satx98.github.io/appmaku.github.io/",
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
     "autoprefixer": "^10.1.0",
+    "babel-loader": "^8.2.2",
     "gh-pages": "^3.1.0",
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^8.3.0",
-    "sass": "^1.30.0"
+    "sass": "^1.30.0",
+    "webpack": "^5.11.0",
+    "webpack-cli": "^4.2.0"
+  },
+  "dependencies": {
+    "core-js": "^3.8.1",
+    "regenerator-runtime": "^0.13.7"
   }
 }
