@@ -11,8 +11,12 @@ const spacefillerOneEl = document.getElementById('spacefiller-1');
 const bgImgTwoEl = document.getElementById('bg-img-2');
 const accompanyTwoEl = document.getElementById('accompany-2');
 const spacefillerTwoEl = document.getElementById('spacefiller-2');
-const accompanyThreeEl = document.getElementById('accompany-3');
 const bgImgThreeEl = document.getElementById('bg-img-3');
+const accompanyThreeEl = document.getElementById('accompany-3');
+const spacefillerThreeEl = document.getElementById('spacefiller-3');
+const bgImgFourEl = document.getElementById('bg-img-4');
+const accompanyFourEl = document.getElementById('accompany-4');
+const spacefillerFourEl = document.getElementById('spacefiller-4');
 
 let bodySizes = null;
 let timeoutCounter = null;
@@ -239,72 +243,105 @@ const posHandler = () => {
   // console.log(phoneBezelDivSizes);
   // console.log(editedPhoneBezelDivSizes);
 
-  // bgImgOneEl.style.setProperty(
-  //   '--pos-top',
-  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
-  // );
-  // bgImgOneEl.style.setProperty(
-  //   '--pos-left',
-  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.5 + 'px',
-  // );
-  // accompanyOneEl.style.setProperty(
-  //   '--pos-top',
-  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.1 + 'px',
-  // );
-  // accompanyOneEl.style.setProperty(
-  //   '--pos-left',
-  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.8 + 'px',
-  // );
-  // spacefillerOneEl.style.setProperty(
-  //   '--pos-top',
-  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.7 + 'px',
-  // );
-  // spacefillerOneEl.style.setProperty(
-  //   '--pos-left',
-  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.2 + 'px',
-  // );
-
-  bgImgTwoEl.style.setProperty(
+  bgImgOneEl.style.setProperty(
     '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.35 + 'px',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
   );
-  bgImgTwoEl.style.setProperty(
+  bgImgOneEl.style.setProperty(
     '--pos-left',
-    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.15 + 'px',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.5 + 'px',
   );
-  accompanyTwoEl.style.setProperty(
+  accompanyOneEl.style.setProperty(
+    '--pos-top',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.1 + 'px',
+  );
+  accompanyOneEl.style.setProperty(
+    '--pos-left',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.8 + 'px',
+  );
+  spacefillerOneEl.style.setProperty(
     '--pos-top',
     editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.7 + 'px',
   );
-  accompanyTwoEl.style.setProperty(
+  spacefillerOneEl.style.setProperty(
     '--pos-left',
-    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.1 + 'px',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.2 + 'px',
   );
-  // spacefillerOneEl.style.setProperty(
+
+  // bgImgTwoEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.35 + 'px',
+  // );
+  // bgImgTwoEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.15 + 'px',
+  // );
+  // accompanyTwoEl.style.setProperty(
   //   '--pos-top',
   //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.7 + 'px',
   // );
-  // spacefillerOneEl.style.setProperty(
+  // accompanyTwoEl.style.setProperty(
   //   '--pos-left',
-  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.2 + 'px',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.15 + 'px',
+  // );
+  // spacefillerTwoEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0 + 'px',
+  // );
+  // spacefillerTwoEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.4 + 'px',
   // );
 
-  // accompanyThreeEl.style.setProperty(
-  //   '--pos-top',
-  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.75 + 'px',
-  // );
-  // accompanyThreeEl.style.setProperty(
-  //   '--pos-left',
-  //   editedPhoneBezelDivSizes.x + editedPhoneBezelDivSizes.width * 1.25 + 'px',
-  // );
   // bgImgThreeEl.style.setProperty(
   //   '--pos-top',
-  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.5 + 'px',
   // );
   // bgImgThreeEl.style.setProperty(
   //   '--pos-left',
-  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.width * 0 + 'px',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.5 + 'px',
   // );
+  // accompanyThreeEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.8 + 'px',
+  // );
+  // accompanyThreeEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * -0.25 + 'px',
+  // );
+  // spacefillerThreeEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.2 + 'px',
+  // );
+  // spacefillerThreeEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 1 + 'px',
+  // );
+
+  bgImgFourEl.style.setProperty(
+    '--pos-top',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.4 + 'px',
+  );
+  bgImgFourEl.style.setProperty(
+    '--pos-left',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.65 + 'px',
+  );
+  accompanyFourEl.style.setProperty(
+    '--pos-top',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.25 + 'px',
+  );
+  accompanyFourEl.style.setProperty(
+    '--pos-left',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.7 + 'px',
+  );
+  spacefillerFourEl.style.setProperty(
+    '--pos-top',
+    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.75 + 'px',
+  );
+  spacefillerFourEl.style.setProperty(
+    '--pos-left',
+    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0 + 'px',
+  );
 };
 
 // Adding an onscroll listener
