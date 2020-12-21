@@ -17,6 +17,7 @@ const spacefillerThreeEl = document.getElementById('spacefiller-3');
 const bgImgFourEl = document.getElementById('bg-img-4');
 const accompanyFourEl = document.getElementById('accompany-4');
 const spacefillerFourEl = document.getElementById('spacefiller-4');
+const headerPrimaryEl = document.getElementById('header-primary');
 
 let bodySizes = null;
 let timeoutCounter = null;
@@ -40,28 +41,47 @@ const ready = () => {
   document.body.style.setProperty('--vw', bodySizes.width / 100 + 'px');
   document.body.style.setProperty('--side-drawer-width', sideDrawerWidth + 'px');
 
-  fps = null;
-  timeoutCounter = 0;
-  let startfps = () => {
-    posHandler();
-    fps = requestAnimationFrame(startfps);
-    if (timeoutCounter >= 10) {
-      cancelAnimationFrame(fps);
-      fps = null;
-      timeoutCounter = null;
-      startfps = null;
-    }
-    timeoutCounter++;
-  };
-  fps = requestAnimationFrame(startfps);
+  headerPrimaryEl.style.opacity = 0;
+
+  // fps = null;
+  // timeoutCounter = 0;
+  // let startfps = () => {
+  //   posHandler();
+  //   fps = requestAnimationFrame(startfps);
+  //   if (timeoutCounter >= 10) {
+  //     cancelAnimationFrame(fps);
+  //     fps = null;
+  //     timeoutCounter = null;
+  //     startfps = null;
+  //   }
+  //   timeoutCounter++;
+  // };
+  // fps = requestAnimationFrame(startfps);
+  posHandler();
 };
 
 const animate = item => {
+  let delayTime = null;
+  let delayEnd = null;
+  if (item.delay) {
+    delayTime = item.delay * 1000;
+    delayEnd = Date.now() + delayTime;
+  }
+
   const duration = item.time * 1000;
-  const end = Date.now() + duration;
+  const end = delayTime ? delayEnd + duration : Date.now() + duration;
 
   const step = () => {
+    if (item.stop()) {
+      return;
+    }
+
     const current = Date.now();
+    const delayRemain = delayTime ? delayEnd - current : null;
+
+    if (delayRemain && delayRemain >= 1) {
+      return requestAnimationFrame(step);
+    }
     const remaining = end - current;
 
     if (remaining < 30) {
@@ -243,30 +263,98 @@ const posHandler = () => {
   // console.log(phoneBezelDivSizes);
   // console.log(editedPhoneBezelDivSizes);
 
-  bgImgOneEl.style.setProperty(
-    '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
-  );
-  bgImgOneEl.style.setProperty(
-    '--pos-left',
-    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.5 + 'px',
-  );
-  accompanyOneEl.style.setProperty(
-    '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.1 + 'px',
-  );
-  accompanyOneEl.style.setProperty(
-    '--pos-left',
-    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.8 + 'px',
-  );
-  spacefillerOneEl.style.setProperty(
-    '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.7 + 'px',
-  );
-  spacefillerOneEl.style.setProperty(
-    '--pos-left',
-    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.2 + 'px',
-  );
+  animate({
+    time: 0.8,
+    run: rate => {
+      bgImgOneEl.style.opacity = 1 - rate;
+      bgImgOneEl.style.setProperty(
+        '--pos-top',
+        // editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
+        editedPhoneBezelDivSizes.y +
+          editedPhoneBezelDivSizes.height * 0.45 +
+          rate * editedPhoneBezelDivSizes.height * 0.2 +
+          'px',
+      );
+      bgImgOneEl.style.setProperty(
+        '--pos-left',
+        editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.5 + 'px',
+      );
+    },
+    onComplete: () => {
+      animate({
+        time: 0.8,
+        run: rate => {
+          accompanyOneEl.style.opacity = 1 - rate;
+          accompanyOneEl.style.setProperty(
+            '--pos-top',
+            editedPhoneBezelDivSizes.y +
+              editedPhoneBezelDivSizes.height * 0.1 +
+              rate * editedPhoneBezelDivSizes.height * 0.1 +
+              'px',
+          );
+          accompanyOneEl.style.setProperty(
+            '--pos-left',
+            editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.8 + 'px',
+          );
+        },
+        onComplete: () => {
+          animate({
+            time: 0.8,
+            run: rate => {
+              spacefillerOneEl.style.opacity = 1 - rate;
+              spacefillerOneEl.style.setProperty(
+                '--pos-top',
+                editedPhoneBezelDivSizes.y +
+                  editedPhoneBezelDivSizes.height * 0.7 +
+                  rate * editedPhoneBezelDivSizes.height * 0.1 +
+                  'px',
+              );
+              spacefillerOneEl.style.setProperty(
+                '--pos-left',
+                editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.2 + 'px',
+              );
+            },
+            onComplete: () => {
+              animate({
+                time: 0.8,
+                run: rate => {
+                  headerPrimaryEl.style.opacity = 1 - rate;
+                  headerPrimaryEl.style.transform = `translateY(${
+                    rate * editedPhoneBezelDivSizes.height * 0.05
+                  }px)`;
+                },
+              });
+            },
+          });
+        },
+      });
+    },
+  });
+
+  // bgImgOneEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.45 + 'px',
+  // );
+  // bgImgOneEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.5 + 'px',
+  // );
+  // accompanyOneEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.1 + 'px',
+  // );
+  // accompanyOneEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.8 + 'px',
+  // );
+  // spacefillerOneEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.7 + 'px',
+  // );
+  // spacefillerOneEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.2 + 'px',
+  // );
 
   // bgImgTwoEl.style.setProperty(
   //   '--pos-top',
@@ -318,30 +406,30 @@ const posHandler = () => {
   //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 1 + 'px',
   // );
 
-  bgImgFourEl.style.setProperty(
-    '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.4 + 'px',
-  );
-  bgImgFourEl.style.setProperty(
-    '--pos-left',
-    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.65 + 'px',
-  );
-  accompanyFourEl.style.setProperty(
-    '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.25 + 'px',
-  );
-  accompanyFourEl.style.setProperty(
-    '--pos-left',
-    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.7 + 'px',
-  );
-  spacefillerFourEl.style.setProperty(
-    '--pos-top',
-    editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.75 + 'px',
-  );
-  spacefillerFourEl.style.setProperty(
-    '--pos-left',
-    editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0 + 'px',
-  );
+  // bgImgFourEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.4 + 'px',
+  // );
+  // bgImgFourEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.65 + 'px',
+  // );
+  // accompanyFourEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.25 + 'px',
+  // );
+  // accompanyFourEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0.7 + 'px',
+  // );
+  // spacefillerFourEl.style.setProperty(
+  //   '--pos-top',
+  //   editedPhoneBezelDivSizes.y + editedPhoneBezelDivSizes.height * 0.75 + 'px',
+  // );
+  // spacefillerFourEl.style.setProperty(
+  //   '--pos-left',
+  //   editedPhoneBezelDivSizes.right - editedPhoneBezelDivSizes.width * 0 + 'px',
+  // );
 };
 
 // Adding an onscroll listener
