@@ -72,7 +72,7 @@ const animate = item => {
   const end = delayTime ? delayEnd + duration : Date.now() + duration;
 
   const step = () => {
-    if (item.stop()) {
+    if (item.stop && item.stop()) {
       return;
     }
 
