@@ -4,6 +4,10 @@
   align-self: center;
 
   z-index: 1;
+
+  &__marker {
+    color: #fd06ea;
+  }
 }
 
 .height-dummy {

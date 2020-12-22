@@ -193,8 +193,6 @@ body {
   height: calc(30 * var(--unit));
   background-color: rgba(253, 58, 105, 0.5);
   border-radius: 50%;
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
@@ -215,8 +213,6 @@ body {
   height: calc(25 * var(--unit));
   background-color: rgba(254, 205, 26, 0.7);
   border-radius: 50%;
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
@@ -238,8 +234,6 @@ body {
   color: rgba(247, 247, 247, 0.9);
   background-color: rgba(253, 58, 105, 0.5);
   width: calc(70 * var(--unit));
-  top: var(--pos-top);
-  left: var(--pos-left);
   white-space: pre;
 }
 .hero__accompany--4 {
@@ -247,8 +241,6 @@ body {
   background-color: rgba(253, 58, 105, 0.5);
   width: calc(50 * var(--unit));
   height: calc(50 * var(--unit));
-  top: var(--pos-top);
-  left: var(--pos-left);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -279,8 +271,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   opacity: 0.95;
 }
 .hero__bg-img--2 {
@@ -290,8 +280,6 @@ body {
   background-position: top left;
   background-repeat: no-repeat;
   background-size: cover;
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   opacity: 0.85;
 }
 .hero__bg-img--3 {
@@ -301,8 +289,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   opacity: 0.95;
 }
 @supports (-webkit-filter: blur(1px)) or (filter: blur(1px)) {
@@ -319,8 +305,6 @@ body {
   background-position: left;
   background-repeat: no-repeat;
   background-size: cover;
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   opacity: 1;
 }
 .hero__speaker-icon {
@@ -328,16 +312,11 @@ body {
   width: calc(24 * var(--unit));
   fill: currentColor;
 }
-.hero__triangle-icon {
-  height: calc(50 * var(--unit));
-  width: calc(50 * var(--unit));
-  fill: currentColor;
-}
 .hero__globe-two-icon {
   height: calc(25 * var(--unit));
   width: calc(25 * var(--unit));
   display: block;
-  transform: translate(calc(-60 * var(--unit)), calc(15 * var(--unit)));
+  transform: translate(calc(-52.5 * var(--unit)), calc(8 * var(--unit)));
   fill: rgba(254, 205, 26, 0.5);
 }
 .hero__code-one-icon {
@@ -358,8 +337,6 @@ body {
   width: calc(40 * var(--unit));
   height: calc(60 * var(--unit));
   padding-left: calc(5 * var(--unit));
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   background-color: rgba(254, 205, 26, 0.4);
   color: rgba(255, 255, 255, 0.5);
   display: flex;
@@ -367,16 +344,20 @@ body {
   justify-content: flex-start;
 }
 .hero__spacefiller--2 {
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   color: rgba(253, 58, 105, 0.5);
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
+.hero__spacefiller--2::before {
+  content: "";
+  display: block;
+  width: calc(60 * var(--unit));
+  height: calc(25 * var(--unit));
+  background-color: rgba(253, 58, 105, 0.7);
+  transform: translate(calc(20 * var(--unit)), calc(8 * var(--unit)));
+}
 .hero__spacefiller--3 {
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   width: calc(35 * var(--unit));
   height: calc(35 * var(--unit));
   background-color: rgba(253, 58, 105, 0.5);
@@ -387,8 +368,6 @@ body {
   justify-content: center;
 }
 .hero__spacefiller--4 {
-  top: var(--pos-top, 9999px);
-  left: var(--pos-left, 9999px);
   width: calc(50 * var(--unit));
   height: calc(50 * var(--unit));
   background-color: rgba(254, 205, 26, 0.5);
@@ -399,17 +378,6 @@ body {
   justify-content: center;
 }
 
-/* .design-element--2::after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-  background-color: var(--color-c);
-  top: 9rem;
-  left: 8rem;
-} */
 .scroll-view {
   height: 100vh;
   width: 100vw;
@@ -450,6 +418,9 @@ body {
   grid-column: center-start/center-end;
   align-self: center;
   z-index: 1;
+}
+.header__marker {
+  color: #fd06ea;
 }
 
 .height-dummy {
