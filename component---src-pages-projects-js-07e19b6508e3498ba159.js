@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{"16l3":function(t,e,n){"use strict";n.r(e);var a=n("q1tI"),o=n.n(a),r=n("VNKG");e.default=function(){return o.a.createElement("div",null,o.a.createElement(r.a,{content:"Projects of Satadru Roy"},"projects | Satadru Roy"))}}}]);
+//# sourceMappingURL=component---src-pages-projects-js-07e19b6508e3498ba159.js.map
